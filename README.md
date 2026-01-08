@@ -1,0 +1,1 @@
+# tecno-seasa-card
