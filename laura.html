@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tarjeta | TECNO SEASA</title>
+
+  <style>
+    :root{
+      --brand-dark:#303030;
+      --brand-teal:#56BECA;
+      --bg:#f6f7f8;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --ring: rgba(86,190,202,.25);
+      --shadow: 0 18px 40px rgba(0,0,0,.12);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(86,190,202,.20), transparent 60%),
+                  radial-gradient(900px 500px at 80% 0%, rgba(48,48,48,.10), transparent 55%),
+                  var(--bg);
+      color:var(--brand-dark);
+    }
+    .wrap{max-width:980px;margin:0 auto;padding:28px 16px 42px}
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      margin-bottom:18px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;
+    }
+    .brand img{height:36px;width:auto}
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:12px;color:var(--muted);
+      background:rgba(255,255,255,.7);
+      border:1px solid rgba(0,0,0,.06);
+      padding:8px 10px;border-radius:999px;
+      backdrop-filter: blur(8px);
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap:16px;
+    }
+    @media (max-width:860px){
+      .grid{grid-template-columns:1fr}
+      .topbar{flex-direction:column;align-items:flex-start}
+    }
+    .card{
+      background:var(--card);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .header{
+      padding:18px 18px 14px;
+      background: linear-gradient(135deg, rgba(86,190,202,.22), rgba(86,190,202,.06));
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .profile{
+      display:flex;gap:14px;align-items:center;
+    }
+    .avatar{
+      width:88px;height:88px;border-radius:18px;
+      overflow:hidden;
+      background: linear-gradient(135deg, rgba(86,190,202,.35), rgba(48,48,48,.08));
+      border:1px solid rgba(0,0,0,.08);
+      flex:0 0 auto;
+      display:grid;place-items:center;
+      position:relative;
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .avatar .initials{
+      font-weight:800;font-size:26px;color:rgba(48,48,48,.85);
+    }
+    .name{font-size:22px;font-weight:800;line-height:1.2;margin:0}
+    .role{margin:6px 0 0;color:var(--muted);font-weight:600}
+    .meta{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;
+    }
+    .tag{
+      font-size:12px;font-weight:700;
+      padding:7px 10px;border-radius:999px;
+      background:#fff;
+      border:1px solid rgba(0,0,0,.08);
+    }
+    .tag strong{color:var(--brand-teal)}
+    .content{padding:16px 18px 18px}
+    .actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width:460px){
+      .actions{grid-template-columns:1fr}
+    }
+    .btn{
+      appearance:none;border:1px solid rgba(0,0,0,.10);
+      background:#fff;
+      padding:12px 12px;border-radius:14px;
+      font-weight:800;
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      cursor:pointer;
+      transition:.12s ease;
+      text-decoration:none;
+      color:var(--brand-dark);
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(0,0,0,.10)}
+    .btn.primary{
+      background:var(--brand-dark);
+      color:#fff;
+      border-color:rgba(0,0,0,.18);
+    }
+    .btn.teal{
+      background:var(--brand-teal);
+      color:#083037;
+      border-color:rgba(0,0,0,.06);
+    }
+    .list{
+      margin:0;padding:0;list-style:none;
+      display:grid;gap:10px;
+    }
+    .item{
+      display:flex;gap:10px;align-items:center;
+      padding:12px 12px;border-radius:14px;
+      border:1px solid rgba(0,0,0,.08);
+      background: rgba(246,247,248,.55);
+    }
+    .ico{
+      width:36px;height:36px;border-radius:12px;
+      background: rgba(86,190,202,.20);
+      display:grid;place-items:center;
+      border:1px solid rgba(86,190,202,.35);
+      flex:0 0 auto;
+    }
+    .item .label{font-size:12px;color:var(--muted);font-weight:800;margin:0}
+    .item .value{font-size:14px;font-weight:800;margin:2px 0 0;word-break:break-word}
+    .qrbox{
+      padding:18px;
+      display:grid;gap:12px;
+      align-content:start;
+    }
+    .qrtitle{margin:0;font-weight:900;font-size:16px}
+    .qrsub{margin:0;color:var(--muted);font-weight:650;font-size:13px}
+    .qr{
+      width:100%;
+      display:grid;place-items:center;
+      background:#fff;
+      border:1px dashed rgba(0,0,0,.18);
+      border-radius:16px;
+      padding:14px;
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+    }
+    .small{font-size:12px;color:var(--muted);line-height:1.45}
+    .footer{
+      margin-top:16px;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .hint{
+      background: rgba(86,190,202,.14);
+      border:1px solid rgba(86,190,202,.35);
+      padding:10px 12px;border-radius:14px;
+      box-shadow: 0 0 0 6px var(--ring);
+      margin-top:12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <!-- Cambia el src por tu logo si quieres (puede ser ruta local o URL) -->
+        <img id="companyLogo" src="LOGOTECNO.jpeg" alt="TECNO SEASA" onerror="this.style.display='none'">
+        <div class="pill">Tarjeta virtual • TECNO SEASA</div>
+      </div>
+      <div class="pill" id="pageUrlPill">URL: (aún no publicada)</div>
+    </div>
+
+    <div class="grid">
+
+      <!-- TARJETA PRINCIPAL -->
+      <section class="card">
+        <div class="header">
+          <div class="profile">
+            <div class="avatar" id="avatar">
+              <span class="initials" id="initials">TS</span>
+              <img id="photo" alt="Foto" style="display:none" />
+            </div>
+
+            <div>
+              <h1 class="name" id="fullName">NOMBRE COMPLETO</h1>
+              <p class="role" id="jobTitle">Puesto / Cargo</p>
+
+              <div class="meta">
+                <span class="tag"><strong>Empresa:</strong> <span id="company">TECNO SEASA</span></span>
+                <span class="tag"><strong>Ubicación:</strong> <span id="location">Guadalajara, Jal.</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content">
+          <ul class="list">
+            <li class="item">
+              <div class="ico">📞</div>
+              <div>
+                <p class="label">Teléfono</p>
+                <p class="value"><a id="phoneLink" href="#" style="color:inherit;text-decoration:none">+52 00 0000 0000</a></p>
+              </div>
+            </li>
+            <li class="item">
+              <div class="ico">💬</div>
+              <div>
+                <p class="label">WhatsApp</p>
+                <p class="value"><a id="waLink" href="#" style="color:inherit;text-decoration:none">Enviar mensaje</a></p>
+              </div>
+            </li>
+            <li class="item">
+              <div class="ico">✉️</div>
+              <div>
+                <p class="label">Email</p>
+                <p class="value"><a id="emailLink" href="#" style="color:inherit;text-decoration:none">correo@empresa.com</a></p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="actions">
+            <a class="btn primary" id="callBtn" href="#">Llamar</a>
+            <a class="btn teal" id="saveBtn" href="#">Guardar contacto (vCard)</a>
+            <button class="btn" id="copyBtn" type="button">Copiar enlace</button>
+            <a class="btn" id="mailBtn" href="#">Enviar correo</a>
+          </div>
+
+      <!-- QR + INFO -->
+      <aside class="card">
+        <div class="qrbox">
+          <p class="qrtitle">Escanea el QR</p>
+          <p class="qrsub">Abre esta tarjeta desde cualquier celular</p>
+
+          <div class="qr">
+            <div id="qrcode"></div>
+          </div>
+
+          <div class="small">
+            Consejo: para impresión, usa el QR de esta sección una vez que la página ya esté publicada.
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+
+  <!-- Generador QR (CDN) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    // =========================
+    // ✅ CONFIG (EDITA AQUÍ)
+    // =========================
+    const CARD = {
+      fullName: "ING.LAURA SANCHEZ ",
+      jobTitle: "GERENTE GENRAL",
+      company: "TECNO SEASA",
+      location: "Leon,GTO",
+      phone: "+52 5528554463",
+      email: "tecnoseasaventas@outlook.com",
+      whatsappPhoneDigits: "525528554463}", // solo dígitos con código país (ej: 5213312345678)
+      whatsappMessage: "Hola, vi tu tarjeta de TECNO SEASA y me gustaría información.",
+      photoUrl: "" };
+
+    // =========================
+    // Render datos
+    // =========================
+    const $ = (id) => document.getElementById(id);
+
+    function initialsFromName(name){
+      const parts = name.trim().split(/\s+/).filter(Boolean);
+      const a = parts[0]?.[0] || "T";
+      const b = parts[1]?.[0] || "S";
+      return (a + b).toUpperCase();
+    }
+
+    function setSafeText(id, value){ $(id).textContent = value; }
+
+    function setup(){
+      setSafeText("fullName", CARD.fullName);
+      setSafeText("jobTitle", CARD.jobTitle);
+      setSafeText("company", CARD.company);
+      setSafeText("location", CARD.location);
+
+      // Avatar
+      const initials = initialsFromName(CARD.fullName);
+      setSafeText("initials", initials);
+
+      if (CARD.photoUrl && CARD.photoUrl.trim().length > 0){
+        const img = $("photo");
+        img.src = CARD.photoUrl.trim();
+        img.onload = () => {
+          img.style.display = "block";
+          $("initials").style.display = "none";
+        };
+        img.onerror = () => {
+          img.style.display = "none";
+          $("initials").style.display = "block";
+        };
+      }
+
+      // Links
+      const phoneDigits = CARD.phone.replace(/[^\d+]/g,"");
+      $("phoneLink").textContent = CARD.phone;
+      $("phoneLink").href = `tel:${phoneDigits}`;
+      $("callBtn").href = `tel:${phoneDigits}`;
+
+      $("emailLink").textContent = CARD.email;
+      $("emailLink").href = `mailto:${CARD.email}`;
+      $("mailBtn").href = `mailto:${CARD.email}`;
+
+      const waText = encodeURIComponent(CARD.whatsappMessage);
+      $("waLink").href = `https://wa.me/${CARD.whatsappPhoneDigits}?text=${waText}`;
+
+      // URL real de la página (cuando ya esté publicada)
+      const url = window.location.href;
+      $("pageUrlPill").textContent = `URL: ${url}`;
+
+      // QR (apunta a la URL real)
+      $("qrcode").innerHTML = "";
+      new QRCode($("qrcode"), {
+        text: url,
+        width: 220,
+        height: 220,
+        correctLevel: QRCode.CorrectLevel.M
+      });
+
+      $("footerNote").textContent = `© ${new Date().getFullYear()} ${CARD.company}`;
+    }
+
+    // =========================
+    // vCard (guardar contacto)
+    // =========================
+    function makeVCard(){
+      const n = CARD.fullName;
+      const org = CARD.company;
+      const title = CARD.jobTitle;
+      const tel = CARD.phone;
+      const email = CARD.email;
+
+      // vCard 3.0 (compatible)
+      return [
+        "BEGIN:VCARD",
+        "VERSION:3.0",
+        `FN:${n}`,
+        `ORG:${org}`,
+        `TITLE:${title}`,
+        `TEL;TYPE=CELL:${tel}`,
+        `EMAIL;TYPE=INTERNET:${email}`,
+        "END:VCARD"
+      ].join("\n");
+    }
+
+    function downloadVCard(){
+      const blob = new Blob([makeVCard()], {type: "text/vcard;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${CARD.fullName.replace(/\s+/g,"_")}.vcf`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    // =========================
+    // Copiar enlace
+    // =========================
+    async function copyLink(){
+      try{
+        await navigator.clipboard.writeText(window.location.href);
+        $("copyBtn").textContent = "¡Copiado!";
+        setTimeout(()=> $("copyBtn").textContent = "Copiar enlace", 1200);
+      }catch(e){
+        alert("No se pudo copiar automáticamente. Copia manual: " + window.location.href);
+      }
+    }
+
+    $("saveBtn").addEventListener("click", (e)=>{ e.preventDefault(); downloadVCard(); });
+    $("copyBtn").addEventListener("click", copyLink);
+
+    setup();
+  </script>
+</body>
+</html>
